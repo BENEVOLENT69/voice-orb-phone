@@ -3,6 +3,7 @@
   const { MODES, matchSpokenMode } = window.VoiceModes;
   const { UsageTracker } = window.GeminiUsage;
   const { speechSupported, createListener } = window.VoiceSpeech;
+  const { sendToClaude, setupInstall } = window.VoiceShare;
   const $ = (id) => document.getElementById(id);
 
   const rawEl = $('raw');
@@ -447,6 +448,18 @@
     b.onclick = () => copyText($(b.dataset.target).value, b);
   });
   $('copy-both').onclick = (e) => copyText(`RAW\n${rawEl.value}\n\nOUTPUT\n${summaryEl.value}`, e.target);
+
+  // ---------- Send to Claude, install ----------
+  $('send-claude').onclick = async (e) => {
+    const btn = e.target;
+    if (navigator.share) setStatus('Opening the share menu - pick Claude');
+    const result = await sendToClaude(summaryEl.value, { nav: navigator, copy: (t) => copyText(t, btn) });
+    if (result === 'shared') setStatus('Sent - finish in Claude');
+    else if (result === 'copied') setStatus('Copied - paste it into Claude');
+    else if (result === 'empty') setStatus('Nothing to send yet');
+    else setStatus('Ready');
+  };
+  setupInstall({ win: window, button: $('install') });
 
   // ---------- boot ----------
   renderModes();

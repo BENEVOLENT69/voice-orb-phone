@@ -40,6 +40,7 @@
     <header id="bar">
       <span id="status">Ready</span>
       <span class="spacer"></span>
+      <button id="install" hidden>Install Voice Orb</button>
       <button id="open-settings" aria-label="Settings">&#9881;</button>
     </header>
 
@@ -52,7 +53,10 @@
       <textarea id="raw" spellcheck="false" placeholder="Your words appear here as you speak..."></textarea>
     </div>
     <div class="pane">
-      <div class="pane-head"><h2 id="out-title">Output</h2><button class="copy" data-target="summary">Copy</button></div>
+      <div class="pane-head">
+        <h2 id="out-title">Output</h2>
+        <span class="pane-actions"><button id="send-claude">Send to Claude</button><button class="copy" data-target="summary">Copy</button></span>
+      </div>
       <textarea id="summary" spellcheck="false" placeholder="The result appears when you pause."></textarea>
     </div>
 
@@ -77,6 +81,7 @@
   <script src="js/frame-cap.js"></script>
   <script src="js/orb.js"></script>
   <script src="js/bear.js"></script>
+  <script src="js/share.js"></script>
   <script src="js/app.js"></script>
 </body>
 </html>

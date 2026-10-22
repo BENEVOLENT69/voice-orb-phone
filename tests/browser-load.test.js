@@ -9,7 +9,7 @@ const vm = require('vm');
 test('page scripts load together in one global scope', () => {
   const ctx = vm.createContext({});
   ctx.window = ctx;
-  for (const file of ['js/modes.js', 'js/usage.js', 'js/gemini.js', 'js/speech.js', 'js/frame-cap.js']) {
+  for (const file of ['js/modes.js', 'js/usage.js', 'js/gemini.js', 'js/speech.js', 'js/frame-cap.js', 'js/share.js']) {
     vm.runInContext(fs.readFileSync(path.join(__dirname, '..', file), 'utf8'), ctx, { filename: file });
   }
   assert.ok(ctx.VoiceModes && ctx.VoiceModes.MODES.length === 4);
@@ -17,6 +17,7 @@ test('page scripts load together in one global scope', () => {
   assert.ok(ctx.GeminiProviderApi && typeof ctx.GeminiProviderApi.GeminiProvider === 'function');
   assert.ok(ctx.VoiceSpeech && typeof ctx.VoiceSpeech.createListener === 'function');
   assert.ok(ctx.VoiceFrameCap && typeof ctx.VoiceFrameCap.createFrameCap === 'function');
+  assert.ok(ctx.VoiceShare && typeof ctx.VoiceShare.sendToClaude === 'function');
 });
 
 test('the service worker caches every file the page loads', () => {
