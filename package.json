@@ -1,0 +1,10 @@
+{
+  "name": "voice-orb-phone",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Voice Orb, phone version: an installable web app (PWA) for Android Chrome",
+  "scripts": {
+    "test": "node --test \"tests/*.test.js\"",
+    "serve": "node scripts/serve.js"
+  }
+}

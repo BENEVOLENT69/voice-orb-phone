@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#0e1424" />
+  <meta http-equiv="Content-Security-Policy"
+        content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src https://generativelanguage.googleapis.com; manifest-src 'self'; worker-src 'self'" />
+  <title>Voice Orb</title>
+  <link rel="manifest" href="manifest.webmanifest" />
+  <link rel="icon" href="icons/icon-192.png" />
+  <link rel="apple-touch-icon" href="icons/icon-192.png" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body data-state="idle">
+  <!-- First run: paste your own Gemini key. It stays in this browser on this phone. -->
+  <section id="setup" class="sheet" hidden>
+    <h1>Voice Orb</h1>
+    <p>Speak, and get your words back as an expert prompt, chat feedback, a summary, or a condensed intent.</p>
+    <label for="key-input">Your Gemini API key</label>
+    <input id="key-input" type="password" autocomplete="off" spellcheck="false" placeholder="Paste your key" />
+    <button id="key-save" class="primary">Save and start</button>
+    <p class="fine">
+      Get a free key at <a href="https://aistudio.google.com/apikey" target="_blank" rel="noopener">aistudio.google.com/apikey</a>.
+      Your key is stored only in this browser on this device and is sent only to Google. Tip: in Google's settings,
+      limit the key to the Gemini API.
+    </p>
+  </section>
+
+  <section id="settings" class="sheet" hidden>
+    <h1>Settings</h1>
+    <p id="key-status"></p>
+    <button id="key-change">Change key</button>
+    <button id="key-forget" class="danger">Forget key on this phone</button>
+    <p id="usage-detail" class="fine"></p>
+    <button id="settings-close" class="primary">Done</button>
+  </section>
+
+  <main id="main">
+    <header id="bar">
+      <span id="status">Ready</span>
+      <span class="spacer"></span>
+      <button id="open-settings" aria-label="Settings">&#9881;</button>
+    </header>
+
+    <div id="ask">What are we doing? Tap one, or tap the orb and say its name or number.</div>
+    <div id="modes"></div>
+    <div id="history"></div>
+
+    <div class="pane">
+      <div class="pane-head"><h2>Raw</h2><button class="copy" data-target="raw">Copy</button></div>
+      <textarea id="raw" spellcheck="false" placeholder="Your words appear here as you speak..."></textarea>
+    </div>
+    <div class="pane">
+      <div class="pane-head"><h2 id="out-title">Output</h2><button class="copy" data-target="summary">Copy</button></div>
+      <textarea id="summary" spellcheck="false" placeholder="The result appears when you pause."></textarea>
+    </div>
+
+    <div class="row">
+      <button id="copy-both">Copy both</button>
+      <button id="reset">&#8635; New</button>
+      <label id="auto-send-label"><input type="checkbox" id="auto-send" /> Send when I pause</label>
+    </div>
+    <div id="tokens"></div>
+  </main>
+
+  <footer id="dock">
+    <div id="caption" hidden></div>
+    <div id="bear"><canvas id="bear-canvas" width="200" height="192"></canvas></div>
+    <button id="orb" aria-label="Start, pause or resume"><canvas id="blob" width="192" height="192"></canvas></button>
+  </footer>
+
+  <script src="js/modes.js"></script>
+  <script src="js/usage.js"></script>
+  <script src="js/gemini.js"></script>
+  <script src="js/speech.js"></script>
+  <script src="js/orb.js"></script>
+  <script src="js/bear.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
