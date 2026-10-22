@@ -4,18 +4,20 @@
 
 const FPS = { idle: 8, choosing: 30, listening: 30, thinking: 30 };
 
-// Wraps `raf` so a callback runs at most `fpsFor()` times a second; skipped frames re-queue.
+// Wraps `raf` so each animation loop runs at most `fpsFor()` times a second; skipped frames
+// re-queue. Loops are told apart by their callback, which each loop passes again every frame.
 function createFrameCap({ raf, now, fpsFor }) {
-  let last = -Infinity;
+  const lastFrame = new Map();
   return function cappedRaf(cb) {
     const tick = (t) => {
       const interval = 1000 / (fpsFor() || 30);
       const time = now();
+      const last = lastFrame.has(cb) ? lastFrame.get(cb) : -Infinity;
       const elapsed = time - last;
       // 1 ms of slack so a frame due between two refreshes isn't pushed back a whole refresh.
       if (elapsed < interval - 1) return raf(tick);
       // Keep to a steady schedule; after a long gap (first frame, tab was hidden) start afresh.
-      last = elapsed > 2 * interval ? time : last + interval;
+      lastFrame.set(cb, elapsed > 2 * interval ? time : last + interval);
       cb(t);
     };
     return raf(tick);

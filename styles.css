@@ -25,7 +25,7 @@ button {
   padding: 8px 12px;
   font: inherit;
   cursor: pointer;
-  min-height: 40px;
+  min-height: 44px;
 }
 button:active { background: rgba(77, 163, 255, 0.35); }
 button.primary { background: var(--blue); color: #04101f; font-weight: 600; border: none; }
@@ -87,9 +87,12 @@ body[data-state="choosing"] .mode { animation: choose 1.6s ease-in-out infinite;
 
 .pane { display: flex; flex-direction: column; }
 .pane-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 4px; }
+.pane-actions { display: flex; gap: 6px; }
+#install { white-space: nowrap; }
 h2 { margin: 0; font-size: 13px; font-weight: 600; color: var(--blue); text-transform: uppercase; letter-spacing: .06em; }
+/* 16px text stops Chrome zooming in when a box is tapped */
 textarea {
-  min-height: 130px;
+  min-height: 110px;
   resize: vertical;
   background: var(--card);
   color: var(--text);
@@ -97,6 +100,7 @@ textarea {
   border-radius: 12px;
   padding: 10px;
   font: inherit;
+  font-size: 16px;
   outline: none;
 }
 textarea:focus { border-color: var(--blue); }
@@ -166,6 +170,7 @@ body[data-state="thinking"] #summary { border-color: #9a7bff; box-shadow: 0 0 14
 .sheet label { font-weight: 600; }
 .sheet input {
   font: inherit;
+  font-size: 16px;
   padding: 12px;
   border-radius: 10px;
   border: 1px solid var(--line);

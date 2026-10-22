@@ -46,6 +46,16 @@ test('idle runs slower', () => {
   assert.ok(loop.frames >= 7 && loop.frames <= 9, `got ${loop.frames} frames`);
 });
 
+test('two animations (orb and bear) each get their own frames', () => {
+  const d = fakeDisplay();
+  const raf = createFrameCap({ raf: d.raf, now: d.now, fpsFor: () => 30 });
+  const orb = animate(raf);
+  const bear = animate(raf);
+  d.run(1000);
+  assert.ok(orb.frames >= 29 && orb.frames <= 31, `orb got ${orb.frames}`);
+  assert.ok(bear.frames >= 29 && bear.frames <= 31, `bear got ${bear.frames}`);
+});
+
 test('changing state takes effect on the next frame', () => {
   const d = fakeDisplay();
   let fps = 8;
