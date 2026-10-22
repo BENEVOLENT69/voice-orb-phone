@@ -1,6 +1,6 @@
 // Caches the app's own files so it opens instantly and can be installed to the home screen.
 // Requests to Google (Gemini) always go to the network.
-const CACHE = 'voice-orb-v1';
+const CACHE = 'voice-orb-v2';
 const ASSETS = [
   './',
   'index.html',
@@ -10,6 +10,7 @@ const ASSETS = [
   'js/usage.js',
   'js/gemini.js',
   'js/speech.js',
+  'js/frame-cap.js',
   'js/orb.js',
   'js/bear.js',
   'js/app.js',
